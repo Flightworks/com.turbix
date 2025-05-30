@@ -7,8 +7,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.turbix.turbulenceengine.TurbulenceEngine
-import com.turbix.turbulenceengine.TurbixOutputState
+import io.sensify.sensor.turbulenceengine.TurbulenceEngine
+import io.sensify.sensor.turbulenceengine.TurbixOutputState
 import io.sensify.sensor.domains.sensors.packets.ModelSensorPacket
 import io.sensify.sensor.domains.sensors.packets.SensorPacketConfig
 import io.sensify.sensor.domains.sensors.packets.SensorPacketsProvider
