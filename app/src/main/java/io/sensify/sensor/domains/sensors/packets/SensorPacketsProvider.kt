@@ -62,21 +62,20 @@ class SensorPacketsProvider : SensorEventListener {
     fun attachSensor(config: SensorPacketConfig): SensorPacketsProvider {
 
 //        Log.d("SensorPacketsProvider", "attachSensor")
-        var prevConfig = mSensorConfigs.get(config.sensorType)
-        var shouldRegister = true
-        if (prevConfig != null) {
-            if (prevConfig.sensorType != config.sensorType) {
-                unregisterSensor(config)
-            } else {
-                shouldRegister = false
-            }
-        }
-        if (shouldRegister) {
-//            Log.d("SensorPacketsProvider", "attachSensor 2")
+        val prevConfig = mSensorConfigs.get(config.sensorType)
 
+        if (prevConfig != null) {
+            // Re-register the sensor if the configuration (e.g. delay) changed
+            if (prevConfig.sensorDelay != config.sensorDelay) {
+                unregisterSensor(prevConfig)
+                mSensorConfigs.set(config.sensorType, config)
+                registerSensor(config)
+            }
+        } else {
             mSensorConfigs.set(config.sensorType, config)
             registerSensor(config)
         }
+
         return this
     }
 
