@@ -11,7 +11,7 @@ import io.sensify.sensor.ui.pages.SplashPage
 import io.sensify.sensor.ui.pages.about.AboutPage
 import io.sensify.sensor.ui.pages.home.HomePage
 import io.sensify.sensor.ui.pages.sensor.details.SensorPage
-
+import io.sensify.sensor.ui.pages.helivibe.HeliVibePage
 
 /**
  * Created by Niraj on 30-08-2022.
@@ -22,13 +22,14 @@ sealed class NavDirectionsApp(val route: String) {
     object SensorDetailPage : NavDirectionsApp("sensor_detail_page")
     object AboutPage : NavDirectionsApp("about_page")
     object Splash : NavDirectionsApp("splash_page")
+    object HeliVibePage : NavDirectionsApp("helivibe_page")
 }
 
 @Composable
 fun NavGraphApp() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = NavDirectionsApp.Splash.route) {
+    NavHost(navController = navController, startDestination = NavDirectionsApp.HeliVibePage.route) {
         // startDestination "labs1"
 //        val viewModelHome: HomeViewModel = HomeViewModel()
 //        val viewModelSensor: SensorViewModel = SensorViewModel()
@@ -49,6 +50,7 @@ fun NavGraphApp() {
             )
         }
         composable(NavDirectionsApp.AboutPage.route) { AboutPage(navController = navController) }
+        composable(NavDirectionsApp.HeliVibePage.route) { HeliVibePage() }
     }
 
 }
