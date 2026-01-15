@@ -33,8 +33,8 @@ class TurbixViewModel(application: Application) : AndroidViewModel(application) 
 
     init {
         val accelerometerConfig = SensorPacketConfig(
-            sensorType = Sensor.TYPE_ACCELEROMETER,
-            sensorDelay = SensorManager.SENSOR_DELAY_GAME
+            sensorType = Sensor.TYPE_LINEAR_ACCELERATION,
+            sensorDelay = SensorManager.SENSOR_DELAY_FASTEST
         )
         SensorPacketsProvider.getInstance().attachSensor(accelerometerConfig)
 
@@ -43,7 +43,7 @@ class TurbixViewModel(application: Application) : AndroidViewModel(application) 
 
         SensorPacketsProvider.getInstance().mSensorPacketFlow
             .onEach { packet ->
-                if (packet.type == Sensor.TYPE_ACCELEROMETER) {
+                if (packet.type == Sensor.TYPE_LINEAR_ACCELERATION) {
                     processSensorPacket(packet)
                 }
             }
@@ -108,13 +108,17 @@ class TurbixViewModel(application: Application) : AndroidViewModel(application) 
         turbulenceEngine.setRotorConfiguration(currentRpm, currentNumBlades, estimatedFs)
     }
 
+    fun setSamplingDuration(durationSeconds: Float) {
+        turbulenceEngine.setSamplingDuration(durationSeconds)
+    }
+
     fun performTare() {
         turbulenceEngine.performTare()
     }
 
     override fun onCleared() {
         super.onCleared()
-        SensorPacketsProvider.getInstance().detachSensor(Sensor.TYPE_ACCELEROMETER)
+        SensorPacketsProvider.getInstance().detachSensor(Sensor.TYPE_LINEAR_ACCELERATION)
         turbulenceEngine.reset()
     }
 

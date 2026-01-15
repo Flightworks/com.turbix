@@ -11,6 +11,7 @@ import io.sensify.sensor.ui.pages.SplashPage
 import io.sensify.sensor.ui.pages.about.AboutPage
 import io.sensify.sensor.ui.pages.home.HomePage
 import io.sensify.sensor.ui.pages.sensor.details.SensorPage
+import io.sensify.sensor.ui.pages.turbix.TurbixPage
 
 
 /**
@@ -22,6 +23,7 @@ sealed class NavDirectionsApp(val route: String) {
     object SensorDetailPage : NavDirectionsApp("sensor_detail_page")
     object AboutPage : NavDirectionsApp("about_page")
     object Splash : NavDirectionsApp("splash_page")
+    object TurbixPage : NavDirectionsApp("turbix_page")
 }
 
 @Composable
@@ -32,6 +34,7 @@ fun NavGraphApp() {
         // startDestination "labs1"
 //        val viewModelHome: HomeViewModel = HomeViewModel()
 //        val viewModelSensor: SensorViewModel = SensorViewModel()
+        composable(NavDirectionsApp.TurbixPage.route) { TurbixPage(navController) }
         composable(NavDirectionsApp.Splash.route) { SplashPage(navController) }
         composable(NavDirectionsApp.HomePage.route) {
             HomePage(

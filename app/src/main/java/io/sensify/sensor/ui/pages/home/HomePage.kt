@@ -304,7 +304,11 @@ fun HomePage(
 
                                     },
                                     onClick = {
-                                        navController?.navigate("${NavDirectionsApp.SensorDetailPage.route}/${it}")
+                                        if (it == Sensor.TYPE_LINEAR_ACCELERATION) {
+                                            navController?.navigate(NavDirectionsApp.TurbixPage.route)
+                                        } else {
+                                            navController?.navigate("${NavDirectionsApp.SensorDetailPage.route}/${it}")
+                                        }
                                     }
                                 )
 
