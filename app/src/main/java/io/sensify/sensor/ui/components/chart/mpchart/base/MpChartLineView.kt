@@ -18,7 +18,9 @@ open class MpChartLineView(var mKey: Int) : IMpChartLineView {
         mLineChart = LineChart(context).apply {
 
             //Set shadow
-            setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+            if (!isInEditMode) {
+                setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+            }
 //            renderer.paintRender.setShadowLayer(3F, 5F, 3F, Color.Gray.toArgb());
 //            setViewPortOffsets(0f, 0f, 0f, 0f);
 

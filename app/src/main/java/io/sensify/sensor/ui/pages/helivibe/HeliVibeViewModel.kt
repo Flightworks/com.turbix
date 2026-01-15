@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class HeliVibeViewModel(application: Application) : AndroidViewModel(application) {
+class HeliVibeViewModel : ViewModel() {
 
     private val engine = HeliVibeEngine()
     val uiState: StateFlow<HeliVibeState> = engine.state
@@ -30,11 +30,12 @@ class HeliVibeViewModel(application: Application) : AndroidViewModel(application
 
         SensorPacketsProvider.getInstance().mSensorPacketFlow
             .onEach { packet ->
-                if (packet.type == Sensor.TYPE_LINEAR_ACCELERATION && packet.values.size >= 3) {
+                val values = packet.values
+                if (packet.type == Sensor.TYPE_LINEAR_ACCELERATION && values != null && values.size >= 3) {
                     engine.processSample(
-                        packet.values[0],
-                        packet.values[1],
-                        packet.values[2]
+                        values[0],
+                        values[1],
+                        values[2]
                     )
                 }
             }
@@ -51,10 +52,10 @@ class HeliVibeViewModel(application: Application) : AndroidViewModel(application
     }
 
     @Suppress("UNCHECKED_CAST")
-    class Factory(private val application: Application) : ViewModelProvider.Factory {
+    class Factory : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(HeliVibeViewModel::class.java)) {
-                return HeliVibeViewModel(application) as T
+                return HeliVibeViewModel() as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

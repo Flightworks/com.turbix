@@ -18,7 +18,7 @@ import io.sensify.sensor.ui.resource.values.JlResShapes
 @Composable
 fun HeliVibePage(
     viewModel: HeliVibeViewModel = viewModel(
-        factory = HeliVibeViewModel.Factory(LocalContext.current.applicationContext as android.app.Application)
+        factory = HeliVibeViewModel.Factory()
     )
 ) {
     val state by viewModel.uiState.collectAsState()

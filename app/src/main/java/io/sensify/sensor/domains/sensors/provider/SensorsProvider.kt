@@ -35,7 +35,7 @@ class SensorsProvider {
 
     private var mSensors: List<ModelSensor> = mutableListOf()
     private var mSensorManager: SensorManager? = null
-    private val _mSensorsFlow = MutableSharedFlow<List<ModelSensor>>(replay = 0)
+    private val _mSensorsFlow = MutableSharedFlow<List<ModelSensor>>(replay = 1)
 
     val mSensorsFlow = _mSensorsFlow.asSharedFlow()
 
@@ -53,14 +53,29 @@ class SensorsProvider {
 
 //        Log.d("SensorsProvider","listenSensors: ")
         if(mSensors.isEmpty()){
-            val sensorList = mSensorManager!!.getSensorList(Sensor.TYPE_ALL).filter {
-//               SensorsConstants.MAP_TYPE_TO_AXIS_COUNT
-                SensorsConstants.SENSORS.contains(it.type)
-
-            }.distinctBy { it.type }.toList()
-//            Log.d("SensorProvider", "$sensorList")
-            mSensors = sensorList.map { ModelSensor(it.type, it) }.toList()
-
+            val manager = mSensorManager
+            if (manager != null) {
+                val sensorList = manager.getSensorList(Sensor.TYPE_ALL).filter {
+                    // SensorsConstants.MAP_TYPE_TO_AXIS_COUNT
+                    SensorsConstants.SENSORS.contains(it.type)
+                }.distinctBy { it.type }.toList()
+                // Log.d("SensorProvider", "$sensorList")
+                mSensors = sensorList.map { ModelSensor(it.type, it) }.toList()
+            } else {
+                // Dummy data for Preview/Test
+                mSensors = SensorsConstants.SENSORS.map { type ->
+                    val name = SensorsConstants.MAP_TYPE_TO_NAME.get(type, "Sensor $type")
+                    val info = mutableMapOf<String, Any>(
+                        SensorsConstants.DETAIL_KEY_NAME to name,
+                        SensorsConstants.DETAIL_KEY_VENDOR to "Preview",
+                        SensorsConstants.DETAIL_KEY_VERSION to 1,
+                        SensorsConstants.DETAIL_KEY_POWER to 0.1f,
+                        SensorsConstants.DETAIL_KEY_Resolution to 0.01f,
+                        SensorsConstants.DETAIL_KEY_Range to 100.0f
+                    )
+                    ModelSensor(type = type, sensor = null, info = info, name = name)
+                }.toList()
+            }
         }
 
         mDefaultScope.launch {

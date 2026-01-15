@@ -210,7 +210,7 @@ fun HomeHeader(
 
                         ) {
                             Image(
-                                painterResource(id = SensorsIcons.MAP_TYPE_TO_ICON.get(sensor.type)),
+                                painterResource(id = SensorsIcons.MAP_TYPE_TO_ICON.get(sensor.type, R.drawable.ic_sensor_unknown)),
                                 contentDescription = "${sensor.name}",
                                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
                                 modifier = Modifier
