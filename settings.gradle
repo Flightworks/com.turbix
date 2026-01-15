@@ -16,4 +16,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "TurbixAndroid"
 include ':app'
-include ':turbulence-engine'
