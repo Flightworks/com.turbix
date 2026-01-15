@@ -19,10 +19,9 @@
       previews = {
         android = {
           command = [
-            "./gradlew"
-            "assembleDebug"
-            "--no-daemon"
-            "-Pandroid.injected.invoked.from.ide=true"
+            "/bin/bash"
+            "-c"
+            "./gradlew assemblePlayDebug --no-daemon -Pandroid.injected.invoked.from.ide=true && mkdir -p app/build/outputs/apk/debug && cp app/build/outputs/apk/play/debug/app-play-debug.apk app/build/outputs/apk/debug/app-debug.apk"
           ];
           manager = "android";
         };

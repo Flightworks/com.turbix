@@ -123,9 +123,6 @@ def applyPlugin() {
 android.applicationVariants.all {
     variant ->
         println  "plugins veriant: " + variant.flavorName
-        variant.outputs.all {
-            outputFileName = "release.apk"
-        }
         if(variant.flavorName == "play"){
 
             println  "variant.flavorName: play "
