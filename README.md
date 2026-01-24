@@ -1,5 +1,27 @@
 
 
+# Turbix (Expo/React Native)
+
+This branch contains the **React Native / Expo** version of Turbix (HeliVibe).
+
+## Quick Start (Expo Go)
+
+1.  **Install Dependencies:**
+    ```bash
+    npm install
+    ```
+2.  **Run the App:**
+    ```bash
+    npx expo start
+    ```
+3.  **Scan QR Code:** Use the Expo Go app on your Android/iOS device to scan the QR code.
+
+## Legacy Android Native
+
+The original native Android application code has been moved to the `android_native/` directory.
+
+---
+
 # Turbix – Helicopter Turbulence Meter *(forked from Sensify)*
 
 
